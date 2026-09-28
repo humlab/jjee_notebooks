@@ -38,7 +38,7 @@ default-riksprot-dtms: data_dirs
 		fi; \
 		echo "info: creating $${tok} DTM speeches in $(SPEACH_CORPUS_FORMAT) format"; \
 		echo "info: target tag: $${dtm_tag} "; \
-		PYTHONPATH=. poetry run vectorize-id \
+		PYTHONPATH=. uv run vectorize-id \
 			--options-filename $${opts_file} \
 				--config-filename $${vrt_speech_corpus_folder}/corpus.yml \
 					--corpus-source $${vrt_speech_corpus_folder} \
@@ -87,7 +87,7 @@ $(TM_TARGET_FOLDER)/$(TM_NAME): data_dirs
 		echo "skipping: VRT source corpus $${vrt_speech_corpus_folder} not found"; \
 		exit 64; \
 	fi; \
-	echo PYTHONPATH=. poetry run tm-train-id \
+	echo PYTHONPATH=. uv run tm-train-id \
 		--options-filename ./opts/tm_riksprot.yml \
 		--corpus-source $${vrt_speech_corpus_folder} \
 		--n-topics $* \
@@ -126,13 +126,13 @@ riksprot-test-data:
 riksprot-test-topic-model:
 	@echo "FIXME: this is not complete, TM must be created by penelope and copied to tests/test_data/riksprot/$(RIKSPROT_VERSION)"
 	@echo "Create model using Penelope:"
-	@echo     PYTHONPATH=. poetry run python penelope/scripts/tm/train_id.py --options-filename opts/opts_tm_mallet_riksprot.test.yml
+	@echo     PYTHONPATH=. uv run python penelope/scripts/tm/train_id.py --options-filename opts/opts_tm_mallet_riksprot.test.yml
 	@scp -r roger@130.239.57.54:/home/roger/source/penelope/data/tm_test.5files.mallet tests/test_data/riksprot/$(RIKSPROT_VERSION)
 
 riksprot-test-dtm:
 	@echo "FIXME: this is not complete, DTM must be created by penelope and copied to tests/test_data/riksprot/$(RIKSPROT_VERSION)"
 	@echo "Create model using Penelope:"
-	@echo     PYTHONPATH=. poetry run python penelope/scripts/dtm/vectorize_id.py --options-filename opts/opts_vectorize_id_riksprot_test.yml
+	@echo     PYTHONPATH=. uv run python penelope/scripts/dtm/vectorize_id.py --options-filename opts/opts_vectorize_id_riksprot_test.yml
 	@echo "NOTE: Make sure vectorize uses the document_index (specified in corpus.yml) found in tagged speech corpus (i.e. feather folder)"
 	@scp -r roger@130.239.57.54:/home/roger/source/penelope/data/dtm_test.5files tests/test_data/riksprot/$(RIKSPROT_VERSION)
 

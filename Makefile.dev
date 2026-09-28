@@ -13,10 +13,10 @@ release: ready guard-clean-working-repository bump.patch tag publish
 ready: tools paths clean tidy test lint requirements.txt build
 
 build: penelope-production-mode requirements.txt-to-git
-	@poetry build
+	@uv build
 
 publish:
-	@poetry publish
+	@uv publish
 
 lint: tidy pylint flake8
 
@@ -32,44 +32,44 @@ tidy-to-git: guard-clean-working-repository tidy
 
 test: output-dir
 	@echo SKIPPING LONG RUNNING TESTS AND CODE COVERAGE!
-	@poetry run pytest -m "not long_running" --durations=0 tests
+	@uv run pytest -m "not long_running" --durations=0 tests
 	@rm -rf ./tests/output/*
 
 pytest: output-dir
-	@poetry run pytest -m "not long_running" --durations=0 tests
+	@uv run pytest -m "not long_running" --durations=0 tests
 
 test-coverage: output-dir
 	@echo SKIPPING LONG RUNNING TESTS!
-	@poetry run pytest -m "not long_running" --cov=$(PACKAGE_FOLDER) --cov-report=html tests
+	@uv run pytest -m "not long_running" --cov=$(PACKAGE_FOLDER) --cov-report=html tests
 	@rm -rf ./tests/output/*
 
 full-test: output-dir
-	@poetry run pytest tests
+	@uv run pytest tests
 	@rm -rf ./tests/output/*
 
 long-test: output-dir
-	@poetry run pytest -m "long_running" --durations=0 tests
+	@uv run pytest -m "long_running" --durations=0 tests
 	@rm -rf ./tests/output/*
 
 full-test-coverage: output-dir
 	@mkdir -p ./tests/output
-	@poetry run pytest --cov=$(PACKAGE_FOLDER) --cov-report=html tests
+	@uv run pytest --cov=$(PACKAGE_FOLDER) --cov-report=html tests
 	@rm -rf ./tests/output/*
 
 output-dir:
 	@mkdir -p ./tests/output
 
 retest:
-	@poetry run pytest --durations=0 --last-failed tests
+	@uv run pytest --durations=0 --last-failed tests
 
 init: tools
-	@poetry install
+	@uv sync
 
 local-venv:
-	@poetry config virtualenvs.in-project true --local
+	@uv venv .venv
 
 global-venv:
-	@poetry config virtualenvs.in-project --unset
+	@echo "uv always uses the project-local .venv"
 
 TYPINGS_PACKAGES=scipy numpy statsmodels pandas bokeh sklearn gensim ipywidgets
 
@@ -77,7 +77,7 @@ TYPINGS_PACKAGES=scipy numpy statsmodels pandas bokeh sklearn gensim ipywidgets
 .ONESHELL: typings
 typings:
 	@for package in $(TYPINGS_PACKAGES); do \
-		poetry run pyright --createstub $$package ; \
+		uv run pyright --createstub $$package ; \
 	done
 
 .ONESHELL: paths
@@ -102,79 +102,73 @@ guard-clean-working-repository:
 	fi
 
 wc:
-	@poetry run time find . -name '*.py' -type f -exec cat \{\} \; | tqdm | wc -l
+	@uv run time find . -name '*.py' -type f -exec cat \{\} \; | tqdm | wc -l
 
 version:
-	@poetry version
-	@poetry env info -p
+	@uv version
+	@uv run python -c 'import sys; print(sys.executable)'
 
 tools:
-	@poetry run pip install --upgrade pip --quiet
-	@poetry run pip install poetry --upgrade --quiet
+	@uv sync
 
 penelope-production-mode:
 	@if grep -xqe "^humlab-penelope.*develop.*\$$" pyproject.toml ; \
 	then \
-		poetry remove humlab-penelope; \
-		poetry run pip uninstall humlab-penelope --yes; \
-		poetry add humlab-penelope[full];
+		uv remove humlab-penelope; \
+		uv add 'humlab-penelope[full]';
 	else \
-		poetry update humlab-penelope[full]; \
+		uv lock --upgrade-package humlab-penelope; \
 	fi
 
 .ONESHELL: penelope-edit-mode
 penelope-edit-mode:
 	@cp -f pyproject.toml pyproject.tmp
 	@sed -i '/humlab-penelope/c\humlab-penelope = {extras = ["full"], path = "../../penelope", develop = true}' pyproject.tmp
-	@poetry remove humlab-penelope
-	@poetry run pip uninstall humlab-penelope --yes
+	@uv remove humlab-penelope
 	@mv -f pyproject.tmp pyproject.toml
-	@poetry update humlab-penelope
-
-# @poetry@3940 add --editable ../../penelope
+	@uv lock --upgrade-package humlab-penelope
 
 penelope-uninstall:
-	@poetry remove humlab-penelope
-	@poetry run pip uninstall humlab-penelope --yes
+	@uv remove humlab-penelope
 
 bump.patch: requirements.txt
-	@poetry version patch
+	@uv version --bump patch
 	@git add pyproject.toml requirements.txt
 	@git commit -m "📌 bump version patch"
 	@git push
 
 tag:
-	@poetry build
+	@uv build
 	@git push
 	@git tag $(shell grep "^version \= " pyproject.toml | sed "s/version = //" | sed "s/\"//g") -a
 	@git push origin --tags
 
 pylint:
-	@time poetry run pylint $(SOURCE_FOLDERS)
-	# @poetry run mypy --version
-	# @poetry run mypy .
+	@time uv run pylint $(SOURCE_FOLDERS)
+	# @uv run mypy --version
+	# @uv run mypy .
 
 pylint2:
 	@-find $(SOURCE_FOLDERS) -type f -name "*.py" | \
 		grep -v .ipynb_checkpoints | \
-			poetry run xargs -I @@ bash -c '{ echo "@@" ; pylint "@@" ; }'
+			uv run xargs -I @@ bash -c '{ echo "@@" ; pylint "@@" ; }'
 
-	# xargs poetry run pylint --disable=W0511 | sort | uniq
+	# xargs uv run pylint --disable=W0511 | sort | uniq
 
 flake8:
-	@poetry run flake8 --version
-	@poetry run flake8 $(SOURCE_FOLDERS)
+	@uv run flake8 --version
+	@uv run flake8 $(SOURCE_FOLDERS)
 
 isort:
-	@poetry run isort --profile black --float-to-top --line-length 120 --py 38 $(SOURCE_FOLDERS)
+	@uv run isort --profile black --float-to-top --line-length 120 --py 38 $(SOURCE_FOLDERS)
 
 yapf: clean
-	@poetry run yapf --version
-	@poetry run yapf --in-place --recursive $(SOURCE_FOLDERS)
+	@uv run yapf --version
+	@uv run yapf --in-place --recursive $(SOURCE_FOLDERS)
 
 black: clean
-	@poetry run black --version
-	@poetry run black --line-length 120 --target-version py38 --skip-string-normalization $(SOURCE_FOLDERS)
+	@uv run black --version
+	@uv run black --line-length 120 --target-version py38 --skip-string-normalization $(SOURCE_FOLDERS)
 
 clean:
 	@rm -rf .pytest_cache build dist .eggs *.egg-info
@@ -185,30 +179,30 @@ clean:
 	@rm -rf tests/output
 
 clean-cache:
-	@poetry cache clear pypi --all
-	@poetry install --remove-untracked
+	@uv cache clean
+	@uv sync
 
 data: nltk-data spacy-data
 
 update:
-	@poetry update
+	@uv lock --upgrade
 
 re-create-env:
-	@poetry remove humlab-penelope
-	@poetry run pip uninstall humlab-penelope
-	@poetry env remove `poetry run which python`
-	@poetry add ../../penelope
+	@uv remove humlab-penelope
+	@rm -rf .venv
+	@uv add --editable ../../penelope
+	@uv sync
 
 nltk-data:
 	@mkdir -p $(NLTK_DATA)
-	@poetry run python -m nltk.downloader -d $(NLTK_DATA) stopwords punkt sentiwordnet
+	@uv run python -m nltk.downloader -d $(NLTK_DATA) stopwords punkt sentiwordnet
 
 spacy-data:
-	@poetry run python -m spacy download $(SPACY_MODEL)
-	@poetry run python -m spacy link $(SPACY_MODEL) en --force
+	@uv run python -m spacy download $(SPACY_MODEL)
+	@uv run python -m spacy link $(SPACY_MODEL) en --force
 
-requirements.txt: poetry.lock
-	@poetry export --without-hashes -f requirements.txt --output requirements.txt
+requirements.txt: uv.lock
+	@uv export --no-hashes --format requirements-txt --output-file requirements.txt
 
 requirements.txt-to-git: requirements.txt
 	@git add requirements.txt
@@ -223,22 +217,22 @@ unpair-ipynb:
         echo "info: unpairing $$ipynb_path..." ;\
 		ipynb_basepath="$${ipynb_path%.*}" ;\
 		py_filepath=$${ipynb_basepath}.py ;\
-        poetry run jupytext --quiet --update-metadata '{"jupytext": null}' $$ipynb_path &> /dev/null ;\
+		uv run jupytext --quiet --update-metadata '{"jupytext": null}' $$ipynb_path &> /dev/null ;\
         rm -f $$py_filepath ;\
 	done
 
 # The `sync` command updates paired file types based on latest timestamp
 sync-ipynb:
 	@echo "Syncing of PY <=> IPYNB is TURNED OFF. Only one-way write of PY => IPYNB is allowed"
-    # poetry run jupytext --sync $(IPYNB_FILES)
+	# uv run jupytext --sync $(IPYNB_FILES)
 
 write-to-ipynb:
 	@echo "warning: write-to-ipynb is disabled in Makefile!"
-	@-poetry run jupytext --to ipynb $(PY_FILES)
+	@-uv run jupytext --to ipynb $(PY_FILES)
 
 .PHONY: git-ipynb
 git-ipynb:
-	@poetry run jupytext --quiet --to notebook $(PY_FILES) &> /dev/null
+	@uv run jupytext --quiet --to notebook $(PY_FILES) &> /dev/null
 	@status="$$(git status --porcelain)"
 	@if [[ "$$status" != "" ]]; then
 		@git add $(IPYNB_FILES)
@@ -247,13 +241,13 @@ git-ipynb:
 	fi
 
 labextension:
-	@poetry run jupyter labextension install \
+	@uv run jupyter labextension install \
 		@finos/perspective-jupyterlab \
 		@jupyter-widgets/jupyterlab-manager
 
 
 pre-commit-ipynb:
-	@poetry run jupytext --sync --pre-commit
+	@uv run jupytext --sync --pre-commit
 	@chmod u+x .git/hooks/pre-commit
 
 gh:
@@ -278,10 +272,10 @@ pr:
 	gh pr create
 
 perspective-juypterlab:
-	@poetry run jupyter labextension uninstall @jupyter-widgets/jupyterlab-manager @finos/perspective-juypterlab
-	@poetry run jupyter lab clean
-	@poetry run jupyter labextension install @jupyter-widgets/jupyterlab-manager @finos/perspective-juypterlab
-	@poetry run jupyter lab build
+	@uv run jupyter labextension uninstall @jupyter-widgets/jupyterlab-manager @finos/perspective-juypterlab
+	@uv run jupyter lab clean
+	@uv run jupyter labextension install @jupyter-widgets/jupyterlab-manager @finos/perspective-juypterlab
+	@uv run jupyter lab build
 
 .ONESHELL: pair-ipynb unpair-ipynb sync-ipynb update-ipynb
 

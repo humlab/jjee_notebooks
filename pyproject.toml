@@ -1,12 +1,10 @@
 [tool]
-[tool.poetry]
+[project]
 name = "humlab-westac"
 version = "0.5.40"
 description = "Welfare State Analytics"
-authors = ["Roger Mähler <roger.mahler@hotmail.com>"]
-packages = [{ include = "notebooks" }, { include = "westac" }]
+authors = [{ name = "Roger Mähler", email = "roger.mahler@hotmail.com" }]
 classifiers = [
-    'License :: OSI Approved :: Apache Software License',
     'Operating System :: OS Independent',
     'Topic :: Software Development',
     'Programming Language :: Python',
@@ -15,68 +13,67 @@ classifiers = [
 ]
 license = "Apache-2.0"
 readme = "README.md"
-homepage = "https://westac.se"
-repository = "https://github.com/welfare-state-analytics/welfare_state_analytics"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "bokeh",
+    "click",
+    "ipywidgets",
+    "jupyterlab==3.*",
+    "loguru>=0.5.3,<0.6.0",
+    "matplotlib",
+    "msgpack>=1.0.2,<2.0.0",
+    "nltk",
+    "pandas<2.0.0",
+    "pandas-bokeh",
+    "scikit-learn",
+    "scipy",
+    "tqdm",
+    "ipydatagrid>=1.1.8,<2.0.0",
+    "bqplot>=0.12.32,<0.13.0",
+    "PyGithub>=1.55,<2.0.0",
+    "plotly>=5.5.0,<6.0.0",
+    "bar-chart-race>=0.1.0,<0.2.0",
+    "urllib3==1.26.15",
+    "humlab-penelope[full]==0.7.68",
+]
+
+[project.urls]
+Homepage = "https://westac.se"
+Repository = "https://github.com/welfare-state-analytics/welfare_state_analytics"
+
+[project.scripts]
+parlaclarin-vectorize = "scripts.riksdagens_protokoll.parlaclarin.vectorize:process"
 
 # FIXME: #137 Remove redundant dependencies
-[tool.poetry.dependencies]
-bokeh = "*"
-click = "*"
-ipywidgets = "*"
-jupyterlab = "==3.*.*"
-loguru = "^0.5.3"
-matplotlib = "*"
-msgpack = "^1.0.2"
-nltk = "*"
-# Pinning Pandas due to build failure 2.0.0
-pandas = "<2.0.0"
-pandas-bokeh = "*"
-python = "==3.11.*"
-scikit-learn = "*"
-scipy = "*"
-tqdm = "*"
-ipydatagrid = "^1.1.8"
-bqplot = "^0.12.32"
-PyGithub = "^1.55"
-plotly = "^5.5.0"
-bar-chart-race = "^0.1.0"
 
-# Pinning urllib3 to 1.26.15 due to build failues with 1.26.6
-urllib3 = "1.26.15"
-humlab-penelope = {extras = ["full"], version = "0.7.68"}
-
-[tool.poetry.dev-dependencies]
-black = "*"
-coverage = "*"
-flake8 = "*"
-flake8-pytest-style = "*"
-invoke = "*"
-isort = "*"
-mypy = "*"
-nbstripout = "*"
-pep8-naming = "*"
-pre-commit = "*"
-pycodestyle = "*"
-pyflakes = "*"
-pylint = "*"
-pytest = "*"
-pytest-cov = "*"
-rope = "*"
-yapf = "*"
-debugpy = "*"
-pyinstrument = "*"
-jupytext = "*"
-xeus-python = "*"
-tomlkit = "*"
-jupyterlite = "*"
-pyright = "*"
-
-[tool.poetry.scripts]
-parlaclarin-vectorize = "scripts.riksdagens_protokoll.parlaclarin.vectorize.py:process"
-
-[tool.poetry.group.dev.dependencies]
-poetry-plugin-export = "^1.6.0"
-pytest-mock = "^3.12.0"
+[dependency-groups]
+dev = [
+    "black",
+    "coverage",
+    "flake8",
+    "flake8-pytest-style",
+    "invoke",
+    "isort",
+    "mypy",
+    "nbstripout",
+    "pep8-naming",
+    "pre-commit",
+    "pycodestyle",
+    "pyflakes",
+    "pylint",
+    "pytest",
+    "pytest-cov",
+    "rope",
+    "yapf",
+    "debugpy",
+    "pyinstrument",
+    "jupytext",
+    "xeus-python",
+    "tomlkit",
+    "jupyterlite",
+    "pyright",
+"pytest-mock>=3.12.0,<4.0.0",
+]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -110,10 +107,6 @@ markers = [
     "long_running: takes time to run",
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
-
-[tool.dephell.main]
-from = { format = "poetry", path = "pyproject.toml" }
-to = { format = "poetry", path = "pyproject.toml" }
 
 [tool.black]
 line-length = 120
@@ -153,5 +146,8 @@ show_missing = true
 sort = "Name"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["notebooks*", "westac*", "scripts*"]
