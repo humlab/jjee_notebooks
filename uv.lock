@@ -815,8 +815,8 @@ wheels = [
 
 [[package]]
 name = "humlab-penelope"
-version = "0.8.3"
-source = { editable = "../../penelope" }
+version = "0.8.4"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bokeh" },
     { name = "click" },
@@ -844,6 +844,10 @@ dependencies = [
     { name = "tqdm" },
     { name = "urllib3" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/c3/c1/f635de115047f32aabba9944ced79c75b1ffa2ea8180dc3e7694a64c4c51/humlab_penelope-0.8.4.tar.gz", hash = "sha256:6e74f5fa68d0b685953f1e28091fb2461fa090db1cf379149d7c7b5bb1c724e3", size = 373982, upload-time = "2026-09-30T13:14:16.091Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7b/6f/f89b8b644bec00d801f829997dd2839fad7307b283c79470ec250154ce75/humlab_penelope-0.8.4-py3-none-any.whl", hash = "sha256:78af82c9236eadbd099ddb541f33b61c8dff443e6f670fbec1fed761c92aad87", size = 505747, upload-time = "2026-09-30T13:14:14.358Z" },
+]
 
 [package.optional-dependencies]
 full = [
@@ -853,65 +857,6 @@ full = [
     { name = "spacy" },
     { name = "textacy" },
     { name = "wordcloud" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "bokeh" },
-    { name = "click" },
-    { name = "ftfy" },
-    { name = "gensim", marker = "extra == 'full'" },
-    { name = "ipycytoscape" },
-    { name = "ipydatagrid", specifier = ">=1.1.8,<2.0.0" },
-    { name = "ipyfilechooser" },
-    { name = "ipywidgets" },
-    { name = "jupyter-bokeh" },
-    { name = "loguru" },
-    { name = "lxml" },
-    { name = "more-itertools" },
-    { name = "msgpack", specifier = ">=1.0.2,<2.0.0" },
-    { name = "networkx", specifier = ">=3.1,<4.0.0" },
-    { name = "nltk", specifier = ">=3.5,<4.0.0" },
-    { name = "numpy" },
-    { name = "openpyxl", specifier = ">=3.0.5,<4.0.0" },
-    { name = "pandas", specifier = ">=2.1.0,<3.0.0" },
-    { name = "pyarrow", marker = "extra == 'full'" },
-    { name = "python-dotenv" },
-    { name = "pyyaml", marker = "extra == 'full'" },
-    { name = "regex" },
-    { name = "requests", specifier = ">=2.24.0,<3.0.0" },
-    { name = "scipy", specifier = "==1.12.0" },
-    { name = "smart-open", specifier = ">=6.4" },
-    { name = "spacy", marker = "extra == 'full'", specifier = "==3.7.0" },
-    { name = "textacy", marker = "extra == 'full'" },
-    { name = "toml" },
-    { name = "tqdm" },
-    { name = "urllib3" },
-    { name = "wordcloud", marker = "extra == 'full'" },
-]
-provides-extras = ["full"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "black" },
-    { name = "coverage" },
-    { name = "flake8" },
-    { name = "flake8-pytest-style" },
-    { name = "isort" },
-    { name = "memory-profiler" },
-    { name = "mypy" },
-    { name = "pep8-naming" },
-    { name = "pycodestyle" },
-    { name = "pyflakes" },
-    { name = "pyinstrument" },
-    { name = "pylint" },
-    { name = "pyright" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-xdist" },
-    { name = "recommonmark" },
-    { name = "ruff", specifier = ">=0.0.289" },
-    { name = "sphinx" },
 ]
 
 [[package]]
@@ -976,7 +921,7 @@ requires-dist = [
     { name = "bokeh" },
     { name = "bqplot", specifier = ">=0.12.32,<0.13.0" },
     { name = "click" },
-    { name = "humlab-penelope", extras = ["full"], editable = "../../penelope" },
+    { name = "humlab-penelope", extras = ["full"], specifier = ">=0.8.4" },
     { name = "ipydatagrid", specifier = ">=1.1.8,<2.0.0" },
     { name = "ipywidgets" },
     { name = "jupyterlab", specifier = "==3.*" },
@@ -1956,11 +1901,11 @@ wheels = [
 
 [[package]]
 name = "networkx"
-version = "3.6.1"
+version = "3.7"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/6a/51/63fe664f3908c97be9d2e4f1158eb633317598cfa6e1fc14af5383f17512/networkx-3.6.1.tar.gz", hash = "sha256:26b7c357accc0c8cde558ad486283728b65b6a95d85ee1cd66bafab4c8168509", size = 2517025, upload-time = "2025-12-08T17:02:39.908Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/76/3af777226b63a5e64a6b36b1ec5855c14e2b94a37096d4760e595fc43511/networkx-3.7.tar.gz", hash = "sha256:fd77a511bd90f39f3d016351345b52cf5319b813bdca01de3f755d3cca62e96a", size = 1866482, upload-time = "2026-09-21T16:45:16.974Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl", hash = "sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762", size = 2068504, upload-time = "2025-12-08T17:02:38.159Z" },
+    { url = "https://files.pythonhosted.org/packages/7e/cd/fe58041e9011f307c490e3e17dd48cc516448f7c698a3f2d9d9d65d7e6a8/networkx-3.7-py3-none-any.whl", hash = "sha256:e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0", size = 2142205, upload-time = "2026-09-21T16:45:14.609Z" },
 ]
 
 [[package]]
