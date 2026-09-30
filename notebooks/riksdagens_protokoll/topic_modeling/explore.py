@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.16.1
+#       jupytext_version: 1.19.5
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -19,7 +19,7 @@
 # ### <span style='color: green'>SETUP </span> Setup Notebook<span style='float: right; color: red'>MANDATORY</span>
 
 # %%
-import __paths__  # pylint: disable=unused-import
+# import __paths__  # pylint: disable=unused-import
 import os
 from typing import Callable
 
@@ -33,8 +33,17 @@ from notebooks.riksdagens_protokoll.topic_modeling import utility as utm
 output_notebook()
 pu.set_default_options()
 
+def find_ancestor_with(file_or_folder_name: str) -> str:
+    folder: str = os.path.dirname(os.path.abspath(__file__))
+    while folder != os.path.dirname(folder):
+        if os.path.exists(os.path.join(folder, file_or_folder_name)):
+            return folder
+        folder = os.path.dirname(folder)
+    return ""
+
 current_state: Callable[[], utm.TopicModelContainer] = utm.TopicModelContainer.singleton
-data_folder: str = os.path.join(__paths__.data_folder, "riksdagen_corpus_data")
+# data_folder: str = os.path.join(__paths__.data_folder, "riksdagen_corpus_data")
+data_folder: str = os.path.join(__paths__.find_ancestor_with("pyproject.toml"), "data")
 
 
 def display_gux(cls, *, state: utm.TopicModelContainer, **kwargs):
@@ -45,6 +54,8 @@ def display_gux(cls, *, state: utm.TopicModelContainer, **kwargs):
     ui = cls(state=state, **kwargs).setup()
     display(ui.layout())
     return ui
+
+print(data_folder)
 
 
 # %% [markdown]

@@ -122,11 +122,7 @@ penelope-production-mode:
 
 .ONESHELL: penelope-edit-mode
 penelope-edit-mode:
-	@cp -f pyproject.toml pyproject.tmp
-	@sed -i '/humlab-penelope/c\humlab-penelope = {extras = ["full"], path = "../../penelope", develop = true}' pyproject.tmp
-	@uv remove humlab-penelope
-	@mv -f pyproject.tmp pyproject.toml
-	@uv lock --upgrade-package humlab-penelope
+	@uv sync
 
 penelope-uninstall:
 	@uv remove humlab-penelope
@@ -168,7 +164,7 @@ yapf: clean
 
 black: clean
 	@uv run black --version
-	@uv run black --line-length 120 --target-version py38 --skip-string-normalization $(SOURCE_FOLDERS)
+	@uv run black --line-length 120 --target-version py312 --skip-string-normalization $(SOURCE_FOLDERS)
 
 clean:
 	@rm -rf .pytest_cache build dist .eggs *.egg-info

@@ -94,7 +94,7 @@ $(TM_TARGET_FOLDER)/$(TM_NAME): data_dirs
 		--target-folder $(TM_TARGET_FOLDER) \
 		$${vrt_speech_corpus_folder}/corpus.yml \
 		$(TM_PREFIX).$*-$(TM_OPTS)
-		
+
 # &> $(TM_TARGET_FOLDER)/$(TM_PREFIX).$*-$(TM_OPTS)/tm_run_$*_$(today).log &
 
 data_dirs:
