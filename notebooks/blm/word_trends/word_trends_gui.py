@@ -8,6 +8,8 @@ import pandas as pd
 from ipywidgets import HTML
 from penelope import corpus as pc
 from penelope.common.keyness import KeynessMetric
+from penelope.common.word_trends import TrendsComputeOpts
+from penelope.common.word_trends import TrendsService as TrendsServiceBase
 from penelope.notebook import mixins as mx
 from penelope.notebook import utility as nu
 from penelope.notebook import word_trends as wt
@@ -24,7 +26,7 @@ TEMPORAL_GROUP_BY = ['decade', 'lustrum', 'year']
 
 
 @dataclass
-class ComputeOpts(wt.TrendsComputeOpts):
+class ComputeOpts(TrendsComputeOpts):
     source_folder: str = None
 
     def invalidates_corpus(self, other: "ComputeOpts") -> bool:
@@ -41,7 +43,7 @@ class ComputeOpts(wt.TrendsComputeOpts):
         return obj
 
 
-class TrendsService(wt.TrendsService):
+class TrendsService(TrendsServiceBase):
     def __init__(self, corpus: pc.VectorizedCorpus, person_codecs: md.PersonCodecs, n_top: int = 100000):
         super().__init__(corpus, n_top=n_top)
         self.person_codecs: md.PersonCodecs = person_codecs
