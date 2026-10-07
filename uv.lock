@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = "==3.12.*"
 
 [[package]]
@@ -815,7 +815,7 @@ wheels = [
 
 [[package]]
 name = "humlab-penelope"
-version = "0.8.4"
+version = "0.8.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bokeh" },
@@ -844,9 +844,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/c1/f635de115047f32aabba9944ced79c75b1ffa2ea8180dc3e7694a64c4c51/humlab_penelope-0.8.4.tar.gz", hash = "sha256:6e74f5fa68d0b685953f1e28091fb2461fa090db1cf379149d7c7b5bb1c724e3", size = 373982, upload-time = "2026-09-30T13:14:16.091Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2b/ae/ba6113188f5e726f4f6caf16e9679b84a867d9572be205a7985051612379/humlab_penelope-0.8.5.tar.gz", hash = "sha256:80b41006e007d7253eaae351046e0ceafa314436dcc11500c0f8874fe3646533", size = 1879457, upload-time = "2026-10-07T12:00:52.512Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7b/6f/f89b8b644bec00d801f829997dd2839fad7307b283c79470ec250154ce75/humlab_penelope-0.8.4-py3-none-any.whl", hash = "sha256:78af82c9236eadbd099ddb541f33b61c8dff443e6f670fbec1fed761c92aad87", size = 505747, upload-time = "2026-09-30T13:14:14.358Z" },
+    { url = "https://files.pythonhosted.org/packages/e8/87/7abce64a73148cd63a8a9bc470cf68a47bb91fe31f0eef969fd1240cd0d8/humlab_penelope-0.8.5-py3-none-any.whl", hash = "sha256:ddcbddf4acf5a4c9b05979ae1cca7f590069ffcc9899061448df30eebc12e471", size = 2016511, upload-time = "2026-10-07T12:00:50.268Z" },
 ]
 
 [package.optional-dependencies]
@@ -921,7 +921,7 @@ requires-dist = [
     { name = "bokeh" },
     { name = "bqplot", specifier = ">=0.12.32,<0.13.0" },
     { name = "click" },
-    { name = "humlab-penelope", extras = ["full"], specifier = ">=0.8.4" },
+    { name = "humlab-penelope", extras = ["full"], specifier = ">=0.8.5" },
     { name = "ipydatagrid", specifier = ">=1.1.8,<2.0.0" },
     { name = "ipywidgets" },
     { name = "jupyterlab", specifier = "==3.*" },
