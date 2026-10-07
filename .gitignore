@@ -54,3 +54,5 @@ typings
 
 symlinks
 humlab_westac.egg-info
+.python-version
+.vscode/settings.json
