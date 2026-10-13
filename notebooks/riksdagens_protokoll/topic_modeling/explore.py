@@ -34,12 +34,12 @@ output_notebook()
 pu.set_default_options()
 
 def find_ancestor_with(file_or_folder_name: str) -> str:
-    folder: str = os.path.dirname(os.path.abspath(__name__))
+    folder: str = os.path.dirname(os.path.abspath(globals().get("__file__") or os.getcwd()))
     while folder != os.path.dirname(folder):
         if os.path.exists(os.path.join(folder, file_or_folder_name)):
             return folder
         folder = os.path.dirname(folder)
-    return ""
+    raise RuntimeError(f"no ancestor folder containing {file_or_folder_name}")
 
 current_state: Callable[[], utm.TopicModelContainer] = utm.TopicModelContainer.singleton
 # data_folder: str = os.path.join(__paths__.data_folder, "riksdagen_corpus_data")
