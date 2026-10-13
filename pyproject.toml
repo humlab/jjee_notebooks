@@ -102,6 +102,7 @@ filterwarnings = [
     "ignore::PendingDeprecationWarning",
     "ignore::RuntimeWarning",
     "ignore::UserWarning",
+    "ignore::FutureWarning", # FIXME: Suppress future warnings during tests. Remove this once the code is updated to be future-proof.
 ]
 markers = [
     "long_running: takes time to run",
