@@ -34,7 +34,7 @@ output_notebook()
 pu.set_default_options()
 
 def find_ancestor_with(file_or_folder_name: str) -> str:
-    folder: str = os.path.dirname(os.path.abspath(__file__))
+    folder: str = os.path.dirname(os.path.abspath(__name__))
     while folder != os.path.dirname(folder):
         if os.path.exists(os.path.join(folder, file_or_folder_name)):
             return folder
@@ -43,7 +43,7 @@ def find_ancestor_with(file_or_folder_name: str) -> str:
 
 current_state: Callable[[], utm.TopicModelContainer] = utm.TopicModelContainer.singleton
 # data_folder: str = os.path.join(__paths__.data_folder, "riksdagen_corpus_data")
-data_folder: str = os.path.join(__paths__.find_ancestor_with("pyproject.toml"), "data")
+data_folder: str = os.path.join(find_ancestor_with("pyproject.toml"), "data")
 
 
 def display_gux(cls, *, state: utm.TopicModelContainer, **kwargs):
