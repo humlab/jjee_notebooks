@@ -56,3 +56,5 @@ symlinks
 humlab_westac.egg-info
 .python-version
 .vscode/settings.json
+**/__paths__.py
+!/__paths__.py
