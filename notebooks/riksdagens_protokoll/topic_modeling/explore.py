@@ -19,7 +19,6 @@
 # ### <span style='color: green'>SETUP </span> Setup Notebook<span style='float: right; color: red'>MANDATORY</span>
 
 # %%
-# import __paths__  # pylint: disable=unused-import
 import os
 from typing import Callable
 
@@ -42,7 +41,6 @@ def find_ancestor_with(file_or_folder_name: str) -> str:
     raise RuntimeError(f"no ancestor folder containing {file_or_folder_name}")
 
 current_state: Callable[[], utm.TopicModelContainer] = utm.TopicModelContainer.singleton
-# data_folder: str = os.path.join(__paths__.data_folder, "riksdagen_corpus_data")
 data_folder: str = os.path.join(find_ancestor_with("pyproject.toml"), "data")
 
 
