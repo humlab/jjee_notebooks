@@ -58,3 +58,4 @@ humlab_westac.egg-info
 .vscode/settings.json
 **/__paths__.py
 !/__paths__.py
+.kilo/
