@@ -9,7 +9,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.19.5
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: jjee_notebooks (3.12.15)
 #     language: python
 #     name: python3
 # ---
@@ -53,8 +53,6 @@ def display_gux(cls, *, state: utm.TopicModelContainer, **kwargs):
     display(ui.layout())
     return ui
 
-print(data_folder)
-
 
 # %% [markdown]
 # ### <span style='color: green'>SETUP </span> Load Model<span style='float: right; color: red'>MANDATORY</span>
@@ -68,7 +66,7 @@ display(load_gui.layout())
 #
 
 # %%
-display_gux(ntm.EditTopicLabelsGUI, folder=load_gui.model_info.folder, state=current_state())
+_ = display_gux(ntm.EditTopicLabelsGUI, folder=load_gui.model_info.folder, state=current_state())
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Display Topic's Word Distribution as a Wordcloud<span style='color: red; float: right'> TRY IT</span>
 
@@ -82,33 +80,33 @@ if wc_ui:
 # Displays documents having topics in which given token is in toplist of dominant words.
 
 # %%
-display_gux(utm.RiksprotFindTopicDocumentsGUI, state=current_state())
+_ = display_gux(utm.RiksprotFindTopicDocumentsGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic-Word Distribution<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
-display_gux(ntm.TopicWordDistributionGUI, state=current_state())
+_ = display_gux(ntm.TopicWordDistributionGUI, state=current_state())
 # %% [markdown]
 # ### <span style='color: green;'>BROWSE</span> Browse Topic Documents<span style='color: red; float: right'>TRY IT</span>
 #
 # Displays documents in which a topic occurs above a given threshold.
 
 # %%
-display_gux(utm.RiksprotBrowseTopicDocumentsGUI, state=current_state())
+_ = display_gux(utm.RiksprotBrowseTopicDocumentsGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic Trends over Time<span style='color: red; float: right'>RUN</span>
 
 # %%
-display_gux(utm.RiksprotTopicTrendsGUI, state=current_state())
+_ = display_gux(utm.RiksprotTopicTrendsGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span>Topic Trends over Time (Multiple Lines)<span style='color: red; float: right'>RUN</span>
 
 # %%
-display_gux(utm.RiksprotTopicMultiTrendsGUI, state=current_state())
+_ = display_gux(utm.RiksprotTopicMultiTrendsGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic Trends Overview<span style='color: red; float: right'>TRY IT</span>
@@ -116,7 +114,7 @@ display_gux(utm.RiksprotTopicMultiTrendsGUI, state=current_state())
 #
 
 # %%
-display_gux(utm.RiksprotTopicTrendsOverviewGUI, state=current_state())
+_ = display_gux(utm.RiksprotTopicTrendsOverviewGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic Topic Network<span style='color: red; float: right'>TRY IT</span>
@@ -124,21 +122,21 @@ display_gux(utm.RiksprotTopicTrendsOverviewGUI, state=current_state())
 # Computes weighted graph of topics co-occurring in the same document. Topics are defined as co-occurring in a document if they both have a weight above given threshold. The edge weights are the number of co-occurrences (binary yes or no). Node size reflects topic proportions over the entire corpus computed in accordance to LDAvis topic proportions.
 
 # %%
-display_gux(utm.RiksprotTopicTopicGUI, state=current_state())
+_ = display_gux(utm.RiksprotTopicTopicGUI, state=current_state())
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Pivot Topic Network<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
-display_gux(ntm.PivotTopicNetworkGUI, state=current_state(), pivot_key_specs=current_state().pivot_key_specs)
+_ = display_gux(ntm.PivotTopicNetworkGUI, state=current_state(), pivot_key_specs=current_state().pivot_key_specs)
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Focus-Topic Document Network<span style='color: red; float: right'>TRY IT</span>
 #
 
 # %%
-display_gux(ntm.FocusTopicDocumentNetworkGui, state=current_state(), pivot_key_specs=current_state().pivot_key_specs)
+_ = display_gux(ntm.FocusTopicDocumentNetworkGui, state=current_state(), pivot_key_specs=current_state().pivot_key_specs)
 
 # %% [markdown]
 # ### <span style='color: green;'>VISUALIZE</span> Topic-Token  Network<span style='color: red; float: right'>TRY IT</span>
