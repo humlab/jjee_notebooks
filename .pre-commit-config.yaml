@@ -1,9 +1,14 @@
 repos:
   - repo: local
     hooks:
+      - id: jupytext-sync
+        name: jupytext-sync
+        files: \.(ipynb|py)$
+        language: system
+        entry: .venv/bin/jupytext --sync --pre-commit-mode
       - id: jupyter-nb-clear-output
         name: jupyter-nb-clear-output
         files: \.ipynb$
-        stages: [commit]
+        stages: [pre-commit]
         language: system
-        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        entry: .venv/bin/jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace

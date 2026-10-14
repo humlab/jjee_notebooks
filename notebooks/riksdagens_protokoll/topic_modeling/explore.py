@@ -146,5 +146,3 @@ display_gux(ntm.FocusTopicDocumentNetworkGui, state=current_state(), pivot_key_s
 # %%
 w = ntm.create_topics_token_network_gui(data_folder=data_folder, custom_styles={'edges': {'curve-style': 'haystack'}})
 display(w.layout())
-
-# %%
