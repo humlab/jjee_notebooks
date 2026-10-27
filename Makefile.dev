@@ -13,7 +13,7 @@ release: ready guard-clean-working-repository bump.patch tag publish
 ready: tools paths clean tidy test lint requirements.txt build
 
 build: penelope-production-mode requirements.txt-to-git
-	@uv build
+	@uv build -q
 
 publish:
 	@uv publish
