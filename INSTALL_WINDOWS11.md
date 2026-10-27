@@ -5,6 +5,28 @@ These instructions use the public GHCR image
 install Podman Desktop, clone the repository, build the image, or log in to
 GHCR. You do need the Podman CLI, a Podman machine, and a local `data` folder.
 
+## 0. Publish the image to GHCR (maintainers only)
+
+Skip this step if you only want to use the already-published image. To publish
+an updated image, run these commands from the repository directory containing
+the `Containerfile`. Create a GitHub **classic personal access token** with the
+`write:packages` scope, then log in to GHCR with your GitHub username. Podman
+will prompt for the token; do not put it directly in a command:
+
+```powershell
+podman login ghcr.io --username <github-username>
+```
+
+Build and push the image using the tag referenced in these instructions:
+
+```powershell
+podman build --tag ghcr.io/roger-mahler/westac-jupyter:jjee-adaptations --file Containerfile .
+podman push ghcr.io/roger-mahler/westac-jupyter:jjee-adaptations
+```
+
+In the GitHub package settings, set the package visibility to **Public** so
+users can pull it without logging in.
+
 ## 1. Install WSL 2
 
 Podman runs Linux containers in a Linux virtual machine. If WSL 2 is not

@@ -1,0 +1,42 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../penelope"
+		}
+	],
+	"settings": {
+		"peacock.remoteColor": "#4e673c",
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#66874f",
+			"activityBar.activeBorder": "#e7e7e7",
+			"activityBar.background": "#66874f",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#afbcd0",
+			"activityBarBadge.foreground": "#15202b",
+			"activityBarTop.activeBackground": "#66874f",
+			"activityBarTop.activeBorder": "#e7e7e7",
+			"activityBarTop.background": "#66874f",
+			"activityBarTop.foreground": "#e7e7e7",
+			"activityBarTop.inactiveForeground": "#e7e7e799",
+			"commandCenter.border": "#e7e7e799",
+			"commandCenter.foreground": "#e7e7e7",
+			"sash.hoverBorder": "#66874f",
+			"statusBar.background": "#4e673c",
+			"statusBar.debuggingBackground": "#4e673c",
+			"statusBar.debuggingForeground": "#e7e7e7",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBar.inactiveBackground": "#4e673c",
+			"statusBarItem.hoverBackground": "#66874f",
+			"statusBarItem.remoteBackground": "#232e3c",
+			"statusBarItem.remoteForeground": "#e7e7e7",
+			"titleBar.activeBackground": "#4e673c",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#4e673c99",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		}
+	}
+}

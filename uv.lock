@@ -815,7 +815,7 @@ wheels = [
 
 [[package]]
 name = "humlab-penelope"
-version = "0.8.7"
+version = "0.8.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bokeh" },
@@ -844,9 +844,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/72/6f/2aab35e1b73304c97c00fc5bab5e529fd98607da5b8e606da068f2c7adf9/humlab_penelope-0.8.7.tar.gz", hash = "sha256:4ba88e89f147e3f5d69e5918734373e657283ce48acc961d3e0ee267a289a105", size = 2399980, upload-time = "2026-10-27T08:44:03.08Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/90/9c/21392a06d4923b0f75575a80add10c0f6dc0a48fdb36bef98c3d30c5eb0c/humlab_penelope-0.8.8.tar.gz", hash = "sha256:1d375da360976e3acd9428ff88be783d16e590d2456f6c56f5c1f3ccbc8e26ab", size = 2717540, upload-time = "2026-10-27T13:05:33.62Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/52/c2837eb06517d93666405feecef3826b9f11f6fa04d212ab77dcd926f32d/humlab_penelope-0.8.7-py3-none-any.whl", hash = "sha256:9d3c301f5727754a644db6c3bb6fbadb6099338e444297e258ef1ebbed147642", size = 2622648, upload-time = "2026-10-27T08:43:58.801Z" },
+    { url = "https://files.pythonhosted.org/packages/88/30/8eeba86acdec63f8926d986f6562ce1314ff6607aa60f80323fac1281f03/humlab_penelope-0.8.8-py3-none-any.whl", hash = "sha256:9f383d80c685c3cb57f21142699535e7470f2fb32e2296b3d3b1ca5f5c3f6e7c", size = 3010091, upload-time = "2026-10-27T13:05:35.735Z" },
 ]
 
 [package.optional-dependencies]
@@ -918,10 +918,10 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "bar-chart-race", specifier = ">=0.1.0,<0.2.0" },
-    { name = "bokeh" },
+    { name = "bokeh", specifier = "==3.9.2" },
     { name = "bqplot", specifier = ">=0.12.32,<0.13.0" },
     { name = "click" },
-    { name = "humlab-penelope", extras = ["full"], specifier = ">=0.8.7" },
+    { name = "humlab-penelope", extras = ["full"], specifier = ">=0.8.8" },
     { name = "ipydatagrid", specifier = ">=1.1.8,<2.0.0" },
     { name = "ipywidgets" },
     { name = "jupyterlab", specifier = "==3.*" },
