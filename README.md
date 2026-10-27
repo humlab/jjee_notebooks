@@ -18,6 +18,34 @@ The `westac_hub` repository contains a ready-to-use Docker setup (`Dockerfile` a
 
 You can also run the `westac_lab` container as a single Docker container if you have Docker installed on your computer.
 
+### Local Podman container
+
+The root `Containerfile` checks out the `jjee-adaptations` branch of this repository and installs its locked runtime dependencies without installing the repository as a Python package. Build the image from the repository directory:
+
+```sh
+podman build -t westac-jupyter -f Containerfile .
+```
+
+To build from another branch, pass `--build-arg BRANCH=<branch-name>`.
+
+#### Windows 11
+
+For the public GHCR image and mounted host `data` directory, see
+[INSTALL_WINDOWS11.md](./INSTALL_WINDOWS11.md). To run natively on Windows
+with uv-managed Python, see [INSTALL_WINDOWS11_UV.md](./INSTALL_WINDOWS11_UV.md).
+
+#### Run on macOS
+
+Build the image locally from the repository directory, then run it with the local `data` directory mounted:
+
+```sh
+podman build -t westac-jupyter -f Containerfile .
+podman run --rm -it \
+  --publish 127.0.0.1:8888:8888 \
+  --mount type=bind,source="$(pwd)/data",target=/workspace/data \
+  westac-jupyter
+```
+
 ## HOWTO Prepare a new version om Riksdagens Protokoll Corpus
 
 ### Prerequisites
@@ -31,4 +59,3 @@ You can also run the `westac_lab` container as a single Docker container if you 
 The command `make default-riksprot-dtm` will create a DTM based on the settings found in 'opts/dtm_riksprot.yml`.
 
 Run `make `
-
